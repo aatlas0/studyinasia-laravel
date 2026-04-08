@@ -1,0 +1,209 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Cairo:wght@400;500;600;700&display=swap');
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-primary: hsl(358 76% 48%);
+    --color-primary-dark: hsl(358 76% 40%);
+    --color-primary-foreground: #ffffff;
+    --color-background: #ffffff;
+    --color-foreground: hsl(222 84% 5%);
+    --color-card: #ffffff;
+    --color-card-foreground: hsl(222 84% 5%);
+    --color-border: hsl(214 32% 91%);
+    --color-muted: hsl(210 40% 96%);
+    --color-muted-foreground: hsl(215 16% 47%);
+    --color-secondary: hsl(210 40% 96%);
+    --color-secondary-foreground: hsl(222 47% 11%);
+    --color-accent: hsl(45 93% 47%);
+    --color-input: hsl(214 32% 91%);
+
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-arabic: 'Cairo', ui-sans-serif, system-ui, sans-serif;
+
+    --radius: 0.75rem;
+}
+
+@layer base {
+    * {
+        border-color: var(--color-border);
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-family: var(--font-sans);
+    }
+
+    [dir="rtl"] body {
+        font-family: var(--font-arabic);
+    }
+
+    /* Dark mode overrides */
+    .dark {
+        --color-background: hsl(222 84% 5%);
+        --color-foreground: hsl(210 40% 98%);
+        --color-card: hsl(222 84% 8%);
+        --color-card-foreground: hsl(210 40% 98%);
+        --color-border: hsl(217 33% 18%);
+        --color-muted: hsl(217 33% 18%);
+        --color-muted-foreground: hsl(215 20% 65%);
+        --color-secondary: hsl(217 33% 18%);
+        --color-secondary-foreground: hsl(210 40% 98%);
+        --color-input: hsl(217 33% 18%);
+    }
+}
+
+@layer components {
+    .btn-primary {
+        display: inline-block;
+        background-color: var(--color-primary);
+        color: var(--color-primary-foreground);
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+    }
+    .btn-primary:hover {
+        background-color: var(--color-primary-dark);
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
+    }
+
+    .btn-outline {
+        display: inline-block;
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+    .btn-outline:hover {
+        background-color: var(--color-primary);
+        color: var(--color-primary-foreground);
+    }
+
+    .section-padding {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+    @media (min-width: 768px) {
+        .section-padding {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+    }
+
+    .container-custom {
+        max-width: 80rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card {
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        color: var(--color-card-foreground);
+    }
+
+    .hover-lift {
+        transition: all 0.3s;
+    }
+    .hover-lift:hover {
+        transform: translateY(-0.5rem);
+        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+    }
+
+    .nav-link {
+        position: relative;
+        color: color-mix(in srgb, var(--color-foreground) 80%, transparent);
+        transition: color 0.3s;
+        text-decoration: none;
+    }
+    .nav-link:hover {
+        color: var(--color-primary);
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-primary);
+        transition: width 0.3s;
+    }
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: var(--color-background);
+        border: 1px solid var(--color-input);
+        border-radius: 0.5rem;
+        color: var(--color-foreground);
+        transition: all 0.2s;
+        outline: none;
+    }
+    .input-field:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+}
+
+@layer utilities {
+    .bg-primary { background-color: var(--color-primary); }
+    .bg-primary\/10 { background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+    .bg-primary\/20 { background-color: color-mix(in srgb, var(--color-primary) 20%, transparent); }
+    .bg-primary\/90 { background-color: color-mix(in srgb, var(--color-primary) 90%, transparent); }
+    .text-primary { color: var(--color-primary); }
+    .border-primary { border-color: var(--color-primary); }
+    .ring-primary { --tw-ring-color: var(--color-primary); }
+    .bg-card { background-color: var(--color-card); }
+    .text-card-foreground { color: var(--color-card-foreground); }
+    .bg-background { background-color: var(--color-background); }
+    .text-foreground { color: var(--color-foreground); }
+    .bg-secondary { background-color: var(--color-secondary); }
+    .text-secondary-foreground { color: var(--color-secondary-foreground); }
+    .bg-muted { background-color: var(--color-muted); }
+    .text-muted-foreground { color: var(--color-muted-foreground); }
+    .border-border { border-color: var(--color-border); }
+    .text-primary-foreground { color: var(--color-primary-foreground); }
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) translateX(-50%); }
+        50% { transform: translateY(-10px) translateX(-50%); }
+    }
+
+    .animate-fade-up {
+        animation: fadeUp 0.6s ease forwards;
+    }
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animation-delay-200 { animation-delay: 200ms; }
+    .animation-delay-300 { animation-delay: 300ms; }
+}
