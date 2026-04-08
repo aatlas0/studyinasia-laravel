@@ -6,8 +6,9 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Models\Category;
 use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -16,22 +17,22 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-document-text';
+    public static function getNavigationIcon(): string|\BackedEnum|null { return 'heroicon-o-document-text'; }
 
     protected static ?string $navigationLabel = 'Blog Posts';
 
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form->schema([
+        return $schema->components([
             Forms\Components\Section::make('Content')
                 ->schema([
                     Forms\Components\TextInput::make('title')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) =>
+                        ->afterStateUpdated(fn (string $operation, $state, Set $set) =>
                             $operation === 'create' ? $set('slug', Str::slug($state)) : null
                         ),
 
